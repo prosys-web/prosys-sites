@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Salão de Beleza | Agenda Premium App — Presença Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#110a08;
+  --panel:#1c1210;
+  --panel2:#261a17;
+  --purple:#c9896a;
+  --purple2:#e8c4aa;
+  --text:#ffffff;
+  --muted:#c8a896;
+  --line:rgba(255,255,255,.12);
+  --ok:#22c55e;
+  --danger:#ef4444;
+  --accent:#c9896a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(201,137,106,.18), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(180,110,80,.14), transparent 26%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+.container{max-width:1180px;margin:auto;padding:0 22px}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,5,20,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{display:flex;align-items:center;gap:14px}
+.logo-mark{
+  width:58px;height:58px;border-radius:18px;
+  border:1px solid rgba(201,137,106,.55);
+  background:linear-gradient(145deg,rgba(201,137,106,.18),rgba(255,255,255,.03));
+  display:grid;place-items:center;font-size:28px;font-weight:900;color:var(--purple2);
+  box-shadow:0 20px 48px rgba(0,0,0,.3);
+}
+.logo strong{display:block;font-family:Syne,sans-serif;font-size:23px;letter-spacing:.08em}
+.logo span{display:block;color:var(--purple);font-size:11px;text-transform:uppercase;letter-spacing:.22em}
+.menu{display:flex;gap:18px;color:var(--muted);font-size:12px;text-transform:uppercase;font-weight:700}
+.menu a:hover{color:#fff}
+.back-hub{
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  border:1px solid var(--line);border-radius:10px;padding:7px 12px;transition:.2s;
+}
+.back-hub:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:50px;padding:14px 22px;border-radius:14px;border:0;cursor:pointer;
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  color:#fff;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.08em;
+  box-shadow:0 16px 40px rgba(201,137,106,.25);
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 22px 50px rgba(201,137,106,.38)}
+.btn.dark{background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;box-shadow:none}
+.btn.dark:hover{background:rgba(255,255,255,.10);transform:translateY(-2px)}
+
+/* HERO */
+.hero{padding:68px 0 44px}
+.hero-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:42px;align-items:center}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  border:1px solid rgba(201,137,106,.42);color:var(--purple2);
+  font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px;
+}
+h1{font-family:Syne,sans-serif;font-size:58px;line-height:.98;letter-spacing:-.045em;margin-bottom:18px}
+h1 span{color:var(--purple2)}
+.lead{font-size:20px;color:var(--muted);max-width:620px;margin-bottom:26px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.feature-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;
+}
+.pill span{color:var(--ok)}
+
+.hero-app{
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  border:1px solid var(--line);border-radius:34px;padding:18px;
+  box-shadow:0 30px 90px rgba(0,0,0,.38);
+}
+.hero-screen{
+  min-height:520px;border-radius:26px;
+  background:
+    linear-gradient(to top,rgba(10,5,20,.80),rgba(10,5,20,.04)),
+    url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1400&q=90') center/cover no-repeat;
+  position:relative;overflow:hidden;
+}
+.float-card{
+  position:absolute;left:22px;right:22px;bottom:22px;
+  background:rgba(10,5,20,.82);border:1px solid var(--line);backdrop-filter:blur(18px);
+  border-radius:24px;padding:20px;
+}
+.float-card strong{display:block;font-size:22px;margin-bottom:4px}
+.float-card span{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}
+.stat strong{font-size:22px;color:var(--purple2)}
+.stat span{display:block;font-size:12px;color:var(--muted)}
+
+/* SECTIONS */
+.section{padding:70px 0;border-top:1px solid var(--line)}
+.section-head{text-align:center;max-width:760px;margin:0 auto 34px}
+.kicker{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--purple);margin-bottom:8px}
+h2{font-family:Syne,sans-serif;font-size:40px;letter-spacing:-.035em;line-height:1.05;margin-bottom:10px}
+.section-head p{color:var(--muted)}
+
+/* DIFERENCIAIS */
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.diff-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  border:1px solid var(--line);border-radius:26px;padding:24px;
+}
+.diff-icon{font-size:32px;margin-bottom:12px}
+.diff-card h3{font-family:Syne,sans-serif;font-size:20px;margin-bottom:8px}
+.diff-card p{color:var(--muted);font-size:14px}
+
+
+/* APP SHELL */
+.app-shell{display:grid;grid-template-columns:330px 1fr;gap:22px;align-items:start}
+.sidebar,.main-panel{
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+  border:1px solid var(--line);border-radius:30px;padding:24px;
+}
+.progress{display:grid;gap:12px}
+.step{
+  display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:18px;
+  background:rgba(255,255,255,.04);color:var(--muted);
+}
+.step.on{border-color:rgba(201,137,106,.45);color:#fff;background:rgba(201,137,106,.10)}
+.step b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);font-size:13px}
+.step.on b{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+input,textarea{
+  width:100%;padding:15px;border-radius:16px;border:1px solid var(--line);
+  background:rgba(255,255,255,.055);color:#fff;font-size:15px;outline:none;transition:.2s;
+}
+input:focus,textarea:focus{border-color:rgba(201,137,106,.5);background:rgba(255,255,255,.08)}
+textarea{grid-column:1/-1;min-height:86px}
+
+.choice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 24px}
+.choice,.day,.slot{
+  min-height:62px;padding:10px;border:1px solid var(--line);border-radius:18px;
+  background:rgba(255,255,255,.045);display:grid;place-items:center;text-align:center;
+  cursor:pointer;font-weight:800;transition:.2s;color:#fff;
+}
+.choice small,.day small,.slot small{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}
+.choice:hover,.day:hover,.slot:hover{transform:translateY(-2px);border-color:rgba(201,137,106,.55)}
+.choice.selected,.day.active,.slot.selected{
+  background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;border-color:transparent;
+  box-shadow:0 0 0 3px rgba(201,137,106,.18);
+}
+.choice.selected small,.day.active small,.slot.selected small{color:rgba(255,255,255,.7)}
+
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:14px 0 24px}
+.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0 24px}
+.slot.blocked{opacity:.42;text-decoration:line-through;cursor:not-allowed;background:rgba(239,68,68,.08)}
+.slot.blocked:hover{transform:none;border-color:var(--line)}
+
+.alert{
+  border:1px solid rgba(201,137,106,.35);background:rgba(201,137,106,.08);
+  color:var(--purple2);border-radius:18px;padding:14px;margin:14px 0;font-weight:800;
+}
+.summary{
+  border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.05);padding:18px;margin-top:18px;
+}
+.summary p{color:var(--muted);margin-bottom:14px}
+.summary strong{color:#fff}
+
+.choice .price-label{display:block;font-size:10px;color:var(--purple2);font-weight:700;margin-top:2px}
+.choice.selected .price-label{color:rgba(255,255,255,.7)}
+
+/* SEGMENT LINKS */
+.seg-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.seg-link{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 16px;
+  border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:13px;font-weight:700;transition:.2s;
+}
+.seg-link:hover{color:#fff;border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
+.seg-link .dot{width:8px;height:8px;border-radius:50%}
+
+.footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted)}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}
+
+@media(max-width:980px){
+  .menu{display:none}
+  .hero-grid,.app-shell,.diff-grid{grid-template-columns:1fr}
+  h1{font-size:40px}
+  .choice-grid,.days,.slots{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .footer-inner{display:block;text-align:center}
+}
+@media(max-width:560px){
+  .nav-inner{flex-direction:column;padding:16px 0;text-align:center}
+  .choice-grid,.days,.slots{grid-template-columns:1fr}
+  .hero-screen{min-height:360px}
+  h1{font-size:34px}
+
+}
+</style>
+
+<style>
+body{font-family:'Montserrat',sans-serif!important}
+h1,h2,h3,strong{font-family:'Playfair Display',serif!important}
+.btn{border-radius:12px!important;letter-spacing:.08em!important}
+</style>
+<style>:root{--accent:#c9896a;--accent2:#e8c4aa}</style></head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark">💇</div>
+      <div>
+        <strong>BELLE STUDIO</strong>
+        <span>Agenda Premium</span>
+      </div>
+    </a>
+    <nav class="menu">
+      <a href="#inicio">Início</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#agenda">Agendar</a>
+    </nav>
+    <a class="btn" href="#agenda">Agendar agora</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge">💇 Salão de Beleza</div>
+      <h1>Beleza que<br><span>transforma você.</span></h1>
+      <p class="lead">Agende pelo site em segundos. Escolha o serviço, a profissional e o horário ideal — confirmação direto no WhatsApp.</p>
+      <div class="hero-btns">
+        <a class="btn" href="#agenda">Agendar agora</a>
+        <a class="btn dark" href="#diferenciais">Como funciona</a>
+      </div>
+      <div class="feature-pills">
+        <div class="pill"><span>✓</span> Sem espera</div>
+        <div class="pill"><span>✓</span> Confirmação WhatsApp</div>
+        <div class="pill"><span>✓</span> Profissional à sua escolha</div>
+      </div>
+    </div>
+    <div>
+      <div class="hero-app">
+        <div class="hero-screen">
+          <div class="float-card">
+            <strong>Agenda ao vivo 💇</strong>
+            <span>Veja horários disponíveis em tempo real</span>
+            <div class="stats">
+              <div class="stat"><strong>+1200</strong><span>Clientes</span></div>
+              <div class="stat"><strong>99%</strong><span>Satisfação</span></div>
+              <div class="stat"><strong>5★</strong><span>Avaliação</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="section" id="diferenciais">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Por que escolher</div>
+      <h2>Experiência sofisticada<br>desde a chegada</h2>
+      <p>Profissionais especializadas, ambiente acolhedor e agendamento 100% digital.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon">⚡</div>
+        <h3>Agendamento Fácil</h3>
+        <p>Escolha serviço, profissional e horário em menos de 1 minuto. Sem ligação, sem fila.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">💎</div>
+        <h3>Especialistas em Beleza</h3>
+        <p>Equipe com anos de experiência em cortes, coloração, tratamentos e escova.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">📲</div>
+        <h3>Confirmação Imediata</h3>
+        <p>Receba confirmação direto no WhatsApp assim que o agendamento for feito.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section class="section" id="agenda">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Agendamento Online</div>
+      <h2>Reserve seu horário</h2>
+      <p>Rápido, fácil e sem sair de casa.</p>
+    </div>
+    <div class="app-shell">
+      <div class="sidebar">
+        <div class="kicker" style="margin-bottom:14px">Resumo do agendamento</div>
+        <div class="progress">
+          <div class="step on"><b>1</b><span>Escolha o serviço</span></div>
+          <div class="step on"><b>2</b><span>Selecione a profissional</span></div>
+          <div class="step on"><b>3</b><span>Escolha o dia e hora</span></div>
+          <div class="step on"><b>4</b><span>Confirme via WhatsApp</span></div>
+        </div>
+        <div class="summary" style="margin-top:20px">
+          <p id="resumo">Preencha os dados ao lado para ver o resumo.</p>
+        </div>
+      </div>
+      <div class="main-panel">
+        <div class="kicker" style="margin-bottom:10px">Seus dados</div>
+        <div class="form-grid">
+          <input id="nome" type="text" placeholder="Seu nome" />
+          <input id="telefone" type="tel" placeholder="WhatsApp" />
+          <textarea id="obs" placeholder="Observações (opcional)"></textarea>
+        </div>
+
+        <div class="kicker" style="margin-bottom:10px">Serviço</div>
+        <div class="choice-grid" id="servicosBox">
+          <div class="choice selected" data-value="Corte feminino" data-preco="R$ 80">
+            Corte<br><small>Feminino</small>
+            <span class="price-label">R$ 80</span>
+          </div>
+          <div class="choice" data-value="Coloração" data-preco="R$ 150">
+            Coloração<br><small>Completa</small>
+            <span class="price-label">R$ 150</span>
+          </div>
+          <div class="choice" data-value="Escova progressiva" data-preco="R$ 180">
+            Escova<br><small>Progressiva</small>
+            <span class="price-label">R$ 180</span>
+          </div>
+          <div class="choice" data-value="Pacote Noiva" data-preco="R$ 350">
+            Pacote<br><small>Noiva</small>
+            <span class="price-label">R$ 350</span>
+          </div>
+        </div>
+
+        <div class="kicker" style="margin-bottom:10px">Profissional</div>
+        <div class="choice-grid" id="profBox">
+          <div class="choice selected" data-value="Qualquer profissional">Qualquer<br><small>disponível</small></div>
+          <div class="choice" data-value="Ana">Ana<br><small>Coloração</small></div>
+          <div class="choice" data-value="Carla">Carla<br><small>Cortes</small></div>
+          <div class="choice" data-value="Paula">Paula<br><small>Progressiva</small></div>
+        </div>
+
+        <div class="kicker" style="margin-bottom:10px">Dia</div>
+        <div class="days" id="diasBox"></div>
+
+        <div class="kicker" style="margin-bottom:10px">Horário</div>
+        <div class="slots" id="slotsBox"></div>
+        <div class="alert" id="escassez"></div>
+
+        <a id="confirmar" class="btn" href="#" target="_blank" style="width:100%;justify-content:center;margin-top:8px">
+          Confirmar no WhatsApp ☘
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>© 2026 Salão | Agenda Premium App</div>
+    <div>Presença Pro • Sistema PROSYS</div>
+  </div>
+</footer>
+
+<script>
+const PHONE = "5585994249656";
+
+let servico = "Corte feminino";
+let preco = "R$ 80";
+let profissional = "Qualquer profissional";
+let diaSelecionado = "";
+let horaSelecionada = "";
+
+const nomesDias = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+const agendaBase = [
+  ["09:00","09:30","10:00","10:30","11:00","14:00","15:00","16:30","18:00"],
+  ["09:30","10:30","11:30","13:30","14:30","16:00","17:30"],
+  ["08:30","09:00","10:00","11:00","14:00","15:30","18:30"],
+  ["10:00","11:00","13:00","14:00","15:00","16:00","19:00"],
+];
+
+function pad(n){ return String(n).padStart(2,"0"); }
+function ocupacao(diaIndex, slotIndex){
+  const seed = (new Date().getDate() + diaIndex * 7 + slotIndex * 3) % 10;
+  return seed < (diaIndex === 0 ? 5 : diaIndex === 1 ? 4 : 3);
+}
+
+function montarDias(){
+  const box = document.getElementById("diasBox");
+  const hoje = new Date();
+  box.innerHTML = "";
+  for(let i=0;i<7;i++){
+    const d = new Date();
+    d.setDate(hoje.getDate()+i);
+    const dia = pad(d.getDate());
+    const mes = pad(d.getMonth()+1);
+    let label = nomesDias[d.getDay()];
+    if(i===0) label = "Hoje";
+    if(i===1) label = "Amanhã";
+    const el = document.createElement("div");
+    el.className = "day" + (i===0 ? " active" : "");
+    el.dataset.index = i;
+    el.dataset.value = `${label} ${dia}/${mes}`;
+    el.innerHTML = `${label}<small>${dia}/${mes}</small>`;
+    el.onclick = () => {
+      document.querySelectorAll(".day").forEach(x=>x.classList.remove("active"));
+      el.classList.add("active");
+      diaSelecionado = el.dataset.value;
+      montarSlots(i);
+      atualizarResumo();
+    };
+    box.appendChild(el);
+  }
+  diaSelecionado = document.querySelector(".day.active").dataset.value;
+}
+
+function montarSlots(diaIndex){
+  const box = document.getElementById("slotsBox");
+  const lista = agendaBase[diaIndex % agendaBase.length];
+  box.innerHTML = "";
+  let livres = 0;
+  lista.forEach((hora, idx)=>{
+    const ocupado = ocupacao(diaIndex, idx);
+    const el = document.createElement("div");
+    el.className = "slot" + (ocupado ? " blocked" : "");
+    el.innerHTML = ocupado ? `${hora}<small>ocupado</small>` : `${hora}<small>livre</small>`;
+    if(!ocupado){
+      livres++;
+      el.dataset.value = hora;
+      el.onclick = () => {
+        document.querySelectorAll(".slot").forEach(x=>x.classList.remove("selected"));
+        el.classList.add("selected");
+        horaSelecionada = hora;
+        atualizarResumo();
+      };
+    }
+    box.appendChild(el);
+  });
+  const primeiroLivre = box.querySelector(".slot:not(.blocked)");
+  if(primeiroLivre){ primeiroLivre.classList.add("selected"); horaSelecionada = primeiroLivre.dataset.value; }
+  else horaSelecionada = "";
+
+  const escassez = document.getElementById("escassez");
+  if(livres <= 2) escassez.textContent = "🔥 Últimos horários disponíveis para este dia.";
+  else if(livres <= 4) escassez.textContent = "⚠ Agenda movimentada. Poucos horários livres.";
+  else escassez.textContent = "✅ Ainda há bons horários disponíveis.";
+}
+
+function selecionarGrupo(id, callback){
+  document.querySelectorAll(`#${id} .choice`).forEach(item=>{
+    item.onclick = () => {
+      document.querySelectorAll(`#${id} .choice`).forEach(x=>x.classList.remove("selected"));
+      item.classList.add("selected");
+      callback(item);
+      atualizarResumo();
+    };
+  });
+}
+
+function atualizarResumo(){
+  const nome = document.getElementById("nome").value.trim() || "Cliente";
+  const telefone = document.getElementById("telefone").value.trim() || "Não informado";
+  const obs = document.getElementById("obs").value.trim() || "Sem observações";
+  document.getElementById("resumo").innerHTML =
+    `<strong>${nome}</strong> quer agendar <strong>${servico}</strong> (${preco}) com <strong>${profissional}</strong> em <strong>${diaSelecionado}</strong> às <strong>${horaSelecionada || "horário a definir"}</strong>.`;
+  const msg =
+`Cliente agendou através do site.\nOlá, vim pelo site do Salão e quero confirmar meu agendamento.
+
+Nome: ${nome}
+Serviço: ${servico} — ${preco}
+Profissional: ${profissional}
+Data: ${diaSelecionado}
+Horário: ${horaSelecionada || "A definir"}
+Telefone: ${telefone}
+Observação: ${obs}`;
+  document.getElementById("confirmar").href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+}
+
+selecionarGrupo("servicosBox", item => { servico = item.dataset.value; preco = item.dataset.preco || ""; });
+selecionarGrupo("profBox", item => profissional = item.dataset.value);
+["nome","telefone","obs"].forEach(id => document.getElementById(id).addEventListener("input", atualizarResumo));
+montarDias(); montarSlots(0); atualizarResumo();
+</script>
+</body>
+</html>
