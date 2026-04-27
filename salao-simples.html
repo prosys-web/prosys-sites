@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Belle Studio | Salão de Beleza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ============================================================
+   CSS VARIABLES — overridden per theme
+   ============================================================ */
+:root {
+  --bg: #0c0c0c; --bg2: #141414; --bg3: #1c1c1c;
+  --text: #f0f0f0; --muted: #888;
+  --line: rgba(255,255,255,.1);
+  --accent: #c9a84c; --accent2: #e8c96a; --accent-rgb: 201,168,76;
+  --btn-text: #0a0a0a;
+  --radius: 14px; --radius-lg: 22px;
+}
+
+/* THEME: BARBEARIA — dark charcoal + gold */
+.theme-barber {
+  --bg: #090909; --bg2: #111109; --bg3: #191910;
+  --text: #f5f2e8; --muted: #8a8470;
+  --line: rgba(201,168,76,.14);
+  --accent: #c9a84c; --accent2: #e8c96a; --accent-rgb: 201,168,76;
+  --btn-text: #090909;
+  background: var(--bg); color: var(--text);
+}
+
+/* THEME: ESTÉTICA — deep plum + rose */
+.theme-estetica {
+  --bg: #0c0810; --bg2: #150f19; --bg3: #1d1522;
+  --text: #f5eef4; --muted: #907a8a;
+  --line: rgba(200,130,165,.14);
+  --accent: #c882a5; --accent2: #e4aaca; --accent-rgb: 200,130,165;
+  --btn-text: #fff;
+  background: var(--bg); color: var(--text);
+}
+
+/* THEME: SALÃO — warm dark + rose gold */
+.theme-salao {
+  --bg: #0c0908; --bg2: #161009; --bg3: #1e1510;
+  --text: #f5eeea; --muted: #907870;
+  --line: rgba(205,145,110,.14);
+  --accent: #cd916e; --accent2: #e8b090; --accent-rgb: 205,145,110;
+  --btn-text: #fff;
+  background: var(--bg); color: var(--text);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(9,9,9,.93); backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+.theme-estetica .nav { background: rgba(12,8,16,.93); }
+.theme-salao .nav    { background: rgba(12,9,8,.93); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 72px;
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-mark {
+  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: grid; place-items: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 800; color: var(--btn-text);
+}
+.logo strong { font-size: 17px; font-weight: 800; letter-spacing: .04em; }
+.logo span   { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .18em; }
+.menu { display: flex; gap: 24px; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.menu a:hover { color: var(--accent); }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 13px 24px; border-radius: var(--radius);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+  transition: transform .2s, box-shadow .2s; cursor: pointer; border: none;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.gold, .btn.rose {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--btn-text);
+  box-shadow: 0 8px 28px rgba(var(--accent-rgb),.32);
+}
+.btn.gold:hover, .btn.rose:hover { box-shadow: 0 14px 38px rgba(var(--accent-rgb),.5); }
+.btn.outline {
+  background: transparent; border: 1px solid rgba(255,255,255,.18);
+  color: var(--text); margin-left: 10px;
+}
+.btn.outline:hover { background: rgba(255,255,255,.06); }
+.btn.wpp {
+  background: linear-gradient(135deg,#25D366,#1da851);
+  color: #fff; box-shadow: 0 8px 28px rgba(37,211,102,.28);
+}
+.btn.wpp:hover { box-shadow: 0 14px 38px rgba(37,211,102,.45); }
+
+/* ============================================================
+   BADGE & KICKER
+   ============================================================ */
+.badge {
+  display: inline-block;
+  border: 1px solid rgba(var(--accent-rgb),.4); color: var(--accent2);
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .18em;
+  margin-bottom: 18px;
+}
+.kicker {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .2em;
+  color: var(--accent); margin-bottom: 8px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { padding: 80px 0 60px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; line-height: 1.05; font-weight: 800; margin-bottom: 18px;
+}
+h1 span { color: var(--accent); }
+.lead { font-size: 17px; color: var(--muted); margin-bottom: 28px; max-width: 480px; }
+.hero-photo {
+  width: 100%; aspect-ratio: 4/5;
+  border-radius: var(--radius-lg);
+  background-image: var(--photo);
+  background-size: cover; background-position: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  border: 1px solid var(--line);
+}
+.quick-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 14px; }
+.qs {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px 10px; text-align: center;
+}
+.qs strong { display: block; font-size: 17px; color: var(--accent); font-weight: 800; }
+.qs span   { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section { padding: 80px 0; border-top: 1px solid var(--line); }
+.section-head { margin-bottom: 36px; }
+.section-head p { color: var(--muted); max-width: 520px; margin-top: 8px; font-size: 15px; }
+h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; line-height: 1.15; }
+h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.service-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.service {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); padding: 24px 20px;
+  transition: transform .2s, border-color .2s;
+}
+.service:hover { transform: translateY(-4px); border-color: rgba(var(--accent-rgb),.35); }
+.ico { font-size: 32px; margin-bottom: 14px; }
+.service h3 { font-size: 15px; margin-bottom: 6px; }
+.service p  { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.service strong { font-size: 14px; color: var(--accent); font-weight: 800; }
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: 200px 200px;
+  gap: 12px;
+}
+.gallery-item {
+  border-radius: var(--radius-lg); overflow: hidden;
+  background-size: cover; background-position: center;
+  border: 1px solid var(--line);
+  transition: transform .3s, box-shadow .3s;
+}
+.gallery-item:hover { transform: scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+.gallery-item.tall { grid-row: span 2; }
+
+/* ============================================================
+   BOOKING
+   ============================================================ */
+.booking-wrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: 20px; }
+.panel {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); padding: 28px;
+}
+.panel h3 { margin-bottom: 10px; }
+.panel p  { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+
+.days { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 20px; }
+.day {
+  display: flex; flex-direction: column; align-items: center;
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 12px; padding: 10px 12px; cursor: pointer;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  min-width: 56px; transition: all .2s;
+}
+.day small { font-size: 11px; font-weight: 500; color: var(--muted); margin-top: 3px; }
+.day:hover { border-color: rgba(var(--accent-rgb),.4); }
+.day.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--btn-text); border-color: transparent;
+}
+.day.active small { color: var(--btn-text); opacity: .75; }
+
+.service-select { margin-bottom: 20px; }
+.service-select label {
+  display: block; font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: var(--muted); margin-bottom: 8px;
+}
+.service-select select {
+  width: 100%; background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px; color: var(--text);
+  font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600;
+  appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.service-select select:focus { outline: none; border-color: rgba(var(--accent-rgb),.5); }
+
+.slots { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+.slot {
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 10px; padding: 10px 14px;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s;
+}
+.slot:hover:not(.blocked)    { border-color: rgba(var(--accent-rgb),.4); }
+.slot.selected { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--btn-text); border-color: transparent; }
+.slot.blocked  { opacity: .3; cursor: not-allowed; text-decoration: line-through; }
+
+.summary {
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 12px; padding: 16px; margin-bottom: 14px;
+}
+.summary p { font-size: 14px; line-height: 1.6; }
+.summary strong { color: var(--accent); }
+
+.note {
+  font-size: 12px; color: var(--muted); font-style: italic;
+  border-top: 1px solid var(--line); padding-top: 14px; margin-top: 4px;
+}
+
+/* ============================================================
+   FOOTER & FLOAT
+   ============================================================ */
+.footer { border-top: 1px solid var(--line); padding: 28px 0; }
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  font-size: 13px; color: var(--muted);
+}
+.whatsapp-float {
+  position: fixed; right: 22px; bottom: 22px; z-index: 200;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #25D366; display: grid; place-items: center;
+  font-size: 26px; box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  transition: transform .2s;
+}
+.whatsapp-float:hover { transform: scale(1.1); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 960px) {
+  .menu { display: none; }
+  .hero-grid, .booking-wrap { grid-template-columns: 1fr; }
+  h1 { font-size: 38px; }
+  h2 { font-size: 30px; }
+  .service-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item.tall { grid-row: span 1; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+@media (max-width: 560px) {
+  h1 { font-size: 32px; }
+  .service-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .btn.outline { margin-left: 0; margin-top: 10px; display: block; text-align: center; }
+  .nav-inner { flex-wrap: wrap; justify-content: center; gap: 10px; padding: 12px 0; }
+}
+
+</style>
+<style>:root{--accent:#cd916e;--accent2:#e8b090}</style></head>
+<body class="theme-salao" data-msg="Olá, vim pelo site do Belle Studio e quero agendar um horário">
+
+<a class="whatsapp-float" href="https://wa.me/5585994249656?text=Olá,%20vim%20pelo%20site%20do%20Belle%20Studio%20e%20quero%20agendar%20um%20horário" target="_blank">☘</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark">B</div>
+      <div><strong>Belle Studio</strong><span>Beleza que transforma</span></div>
+    </a>
+    <nav class="menu">
+      <a href="#inicio">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn gold" href="#agenda">Agendar agora</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <span class="badge">Salão de Beleza</span>
+        <h1>Realce sua <span>beleza,</span> eleve sua autoestima.</h1>
+        <p class="lead">Cada detalhe pensado para valorizar você — com atendimento personalizado, produtos premium e um ambiente que faz você se sentir especial.</p>
+        <a class="btn gold" href="#agenda">Agendar pelo WhatsApp</a>
+        <a class="btn outline" href="#servicos">Ver serviços</a>
+      </div>
+      <div>
+        <div class="hero-photo" style="--photo:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=85')"></div>
+        <div class="quick-stats">
+          <div class="qs"><strong>✓</strong><span>Sem fila</span></div>
+          <div class="qs"><strong>100%</strong><span>Personalizado</span></div>
+          <div class="qs"><strong>WhatsApp</strong><span>Agendamento</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Nossos serviços</div>
+        <h2>Cuidado completo para você</h2>
+        <p>Da raiz às pontas, do corte à coloração — oferecemos tudo que você precisa para se sentir linda e confiante.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service">
+          <div class="ico">✂️</div>
+          <h3>Corte feminino</h3>
+          <p>Estilos modernos e personalizados para valorizar seu rosto e personalidade.</p>
+          <strong>A partir de R$ 60</strong>
+        </div>
+        <div class="service">
+          <div class="ico">💨</div>
+          <h3>Escova</h3>
+          <p>Brilho, movimento e leveza. Acabamento perfeito que dura muito mais.</p>
+          <strong>A partir de R$ 45</strong>
+        </div>
+        <div class="service">
+          <div class="ico">🎨</div>
+          <h3>Coloração</h3>
+          <p>Tons incríveis, cheios de vida e cor com produtos de alta qualidade.</p>
+          <strong>Sob consulta</strong>
+        </div>
+        <div class="service">
+          <div class="ico">💧</div>
+          <h3>Hidratação</h3>
+          <p>Cuidado profundo para seus fios — maciez, brilho e força de volta.</p>
+          <strong>A partir de R$ 70</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section" id="galeria">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Galeria</div>
+        <h2>Transformações reais</h2>
+        <p>Cada cliente tem uma história. Veja algumas das transformações que já fizemos.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item tall" style="background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80')"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section class="section" id="agenda">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Agendamento</div>
+        <h2>Reserve seu horário</h2>
+        <p>Escolha o serviço, o dia e o horário. Confirmamos na hora pelo WhatsApp — sem espera e sem complicação.</p>
+      </div>
+      <div class="booking-wrap">
+        <div class="panel">
+          <h3>Simples assim: escolha e agende.</h3>
+          <p>Chega de depender de ligações. Com nosso agendamento online, você escolhe o horário que quiser e recebe a confirmação direto no seu WhatsApp.</p>
+          <div style="margin-top:20px">
+            <div class="kicker">Vantagens de agendar online</div>
+            <ul style="list-style:none;display:grid;gap:10px;margin-top:10px">
+              <li style="font-size:14px;color:var(--muted)">✓ &nbsp;Escolha o serviço e o horário</li>
+              <li style="font-size:14px;color:var(--muted)">✓ &nbsp;Confirmação imediata pelo WhatsApp</li>
+              <li style="font-size:14px;color:var(--muted)">✓ &nbsp;Sem precisar ligar</li>
+              <li style="font-size:14px;color:var(--muted)">✓ &nbsp;Cancele ou reagende com facilidade</li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="panel">
+          <div class="service-select">
+            <label>1. Escolha o serviço</label>
+            <select id="servicoSelect">
+              <option value="Corte feminino (R$ 60)">✂️ Corte feminino — R$ 60</option>
+              <option value="Escova (R$ 45)">💨 Escova — R$ 45</option>
+              <option value="Coloração (sob consulta)">🎨 Coloração — Sob consulta</option>
+              <option value="Hidratação (R$ 70)">💧 Hidratação — R$ 70</option>
+              <option value="Corte + Escova">✂️💨 Corte + Escova</option>
+            </select>
+          </div>
+          <h3>2. Escolha o dia</h3>
+          <div class="days" id="diasContainer"></div>
+          <h3 style="margin-top:4px">3. Escolha o horário</h3>
+          <div class="slots">
+            <div class="slot" data-hora="09:00">09:00</div>
+            <div class="slot" data-hora="10:00">10:00</div>
+            <div class="slot blocked">11:00</div>
+            <div class="slot" data-hora="13:00">13:00</div>
+            <div class="slot selected" data-hora="14:00">14:00</div>
+            <div class="slot" data-hora="15:00">15:00</div>
+            <div class="slot" data-hora="16:00">16:00</div>
+            <div class="slot blocked">17:00</div>
+            <div class="slot" data-hora="18:00">18:00</div>
+            <div class="slot" data-hora="19:00">19:00</div>
+          </div>
+          <div class="summary"><p id="resumo"></p></div>
+          <a id="confirmar" class="btn gold" href="#" target="_blank" style="width:100%;justify-content:center">Confirmar no WhatsApp ☘</a>
+          <div class="note">Os horários marcados como "ocupado" já estão reservados. Escolha um disponível.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="contato">
+  <div class="container footer-inner">
+    <div>© 2026 Belle Studio — Desenvolvido por <strong style="color:var(--accent)">Presença Pro</strong></div>
+    <div><a href="https://prosys-web.github.io/" target="_blank" style="color:var(--accent)">presencapro.com.br</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const PHONE = "5585994249656";
+  const BASE_MSG = document.body.dataset.msg;
+  const diasContainer = document.getElementById("diasContainer");
+  const nomes = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  let diaSelecionado = "", horaSelecionada = "14:00", servicoSelecionado = "";
+
+  function pad(n){ return String(n).padStart(2,"0"); }
+
+  function montarDias(){
+    const hoje = new Date();
+    diasContainer.innerHTML = "";
+    for(let i = 0; i < 7; i++){
+      const d = new Date();
+      d.setDate(hoje.getDate() + i);
+      let label = nomes[d.getDay()];
+      if(i === 0) label = "Hoje";
+      if(i === 1) label = "Amanhã";
+      const dia = pad(d.getDate()), mes = pad(d.getMonth()+1);
+      const el = document.createElement("div");
+      el.className = "day" + (i === 0 ? " active" : "");
+      el.dataset.dia = (i===0?"Hoje":i===1?"Amanhã":label+" "+dia+"/"+mes);
+      el.innerHTML = `${label}<small>${dia}/${mes}</small>`;
+      diasContainer.appendChild(el);
+    }
+    diaSelecionado = document.querySelector(".day.active").dataset.dia;
+  }
+
+  function atualizar(){
+    servicoSelecionado = document.getElementById("servicoSelect").value;
+    document.getElementById("resumo").innerHTML =
+      `Serviço: <strong>${servicoSelecionado}</strong><br>
+       Dia: <strong>${diaSelecionado}</strong> às <strong>${horaSelecionada}</strong>`;
+    const msg = `${BASE_MSG}.\nServiço: ${servicoSelecionado}\nDia: ${diaSelecionado}\nHorário: ${horaSelecionada}`;
+    document.getElementById("confirmar").href = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+  }
+
+  montarDias(); atualizar();
+
+  document.querySelectorAll(".day").forEach(x => x.onclick = () => {
+    document.querySelectorAll(".day").forEach(y => y.classList.remove("active"));
+    x.classList.add("active"); diaSelecionado = x.dataset.dia; atualizar();
+  });
+  document.querySelectorAll(".slot[data-hora]").forEach(x => x.onclick = () => {
+    if(x.classList.contains("blocked")) return;
+    document.querySelectorAll(".slot").forEach(y => y.classList.remove("selected"));
+    x.classList.add("selected"); horaSelecionada = x.dataset.hora; atualizar();
+  });
+  document.getElementById("servicoSelect").onchange = atualizar;
+})();
+</script>
+</body>
+</html>
